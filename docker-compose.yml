@@ -14,7 +14,6 @@ services:
       - ./elasticsearch/data/backups/:/usr/share/elasticsearch/backups
     ports:
       - "9200:9200"
-      - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx1g -Xms1g"
     networks:
