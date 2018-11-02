@@ -10,8 +10,8 @@ services:
     restart: on-failure
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - ./elasticsearch/data/nodes/:/usr/share/elasticsearch/data/nodes
-      - ./elasticsearch/data/backups/:/usr/share/elasticsearch/backups
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/backups:/usr/share/elasticsearch/backups
     ports:
       - "9200:9200"
     environment:
