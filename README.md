@@ -4,6 +4,7 @@
 ```
 mkdir elasticsearch/data
 chmod 777 elasticsearch/data
+chmod 777 elasticsearch/backups
 ```
 
 ### Check Health
