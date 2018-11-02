@@ -44,6 +44,37 @@ POST /_snapshot/v2.2/latest/_restore
 {
   "indices": "games",
   "ignore_unavailable": true,
-  "include_global_state": false
+  "include_global_state": false,
+  "index_settings": {
+    "index.number_of_replicas": 0
+  },
+  "ignore_index_settings": [
+    "index.refresh_interval"
+  ]
+}
+```
+
+### Reindex
+```
+POST _reindex
+{
+  "source": {
+    "index": "games"
+  },
+  "dest": {
+    "index": "games_new"
+  }
+}
+```
+
+### Unlock Index
+```
+PUT games/_settings
+{
+  "index": {
+    "blocks": {
+      "read_only_allow_delete": "false"
+    }
+  }
 }
 ```
