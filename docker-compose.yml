@@ -15,7 +15,8 @@ services:
     ports:
       - "9200:9200"
     environment:
-      ES_JAVA_OPTS: "-Xmx1g -Xms1g"
+      VIRTUAL_HOST: "search.anthive.io"
+      ES_JAVA_OPTS: "-Xmx512MB -Xms512MB"
     networks:
       - elk
 
@@ -32,6 +33,17 @@ services:
       - elk
     depends_on:
       - elasticsearch
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/nginx/certs:/etc/nginx/certs
+    networks:
+      - elk
 
 networks:
 
