@@ -6,6 +6,24 @@ mkdir elasticsearch/data
 chmod 777 elasticsearch/data
 chmod 777 elasticsearch/backups
 ```
+#### nginx reverse proxy
+```
+	server {
+		listen		443 ssl;
+
+		location / {
+			proxy_pass http://127.0.0.1:9200;
+		}
+
+		ssl_certificate       /etc/nginx/certs/search.anthive.io.crt;
+        	ssl_certificate_key   /etc/nginx/certs/search.anthive.io.key;
+        	ssl_protocols         SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+        	ssl_ciphers           HIGH:!aNULL:!MD5;
+        	ssl_session_cache     shared:SSL:20m;
+#        	ssl_session_timeout   4h;
+#        	ssl_handshake_timeout 30s;
+	}
+```
 
 ### Check Health
 ```
