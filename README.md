@@ -33,10 +33,34 @@ GET _cat/shards?v
 
 ### Create index
 ```
-PUT games
+PUT games-dev
 {
     "settings" : {
-        "number_of_shards" : 3,
+        "number_of_shards" : 1,
+        "number_of_replicas" : 0
+    }
+}
+
+PUT commits-dev
+{
+    "settings" : {
+        "number_of_shards" : 1,
+        "number_of_replicas" : 0
+    }
+}
+
+PUT bots-dev
+{
+    "settings" : {
+        "number_of_shards" : 1,
+        "number_of_replicas" : 0
+    }
+}
+
+PUT hours-dev
+{
+    "settings" : {
+        "number_of_shards" : 1,
         "number_of_replicas" : 0
     }
 }
