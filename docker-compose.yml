@@ -18,13 +18,19 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      ELASTIC_PASSWORD: changeme
-      # Use single node discovery in order to disable production mode and avoid bootstrap checks
-      # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      ES_JAVA_OPTS: "-Xmx1g -Xms1g"
       discovery.type: single-node
     networks:
       - elk
+
+  api:
+    image: "api" #your image with api running on port :8080
+    ports:
+      - "8080:8080"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
 
   kibana:
     build:
