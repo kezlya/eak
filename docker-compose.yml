@@ -1,11 +1,17 @@
 version: '3.2'
 
 services:
+  api:
+    image: nginx #your image with api running on port :8080
+    ports:
+      - "8080:80"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
   elasticsearch:
-    build:
-      context: elasticsearch/
-      args:
-        ELK_VERSION: $ELK_VERSION
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
     volumes:
       - type: bind
         source: ./elasticsearch/config/elasticsearch.yml
@@ -14,29 +20,20 @@ services:
       - type: volume
         source: elasticsearch
         target: /usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-      - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx1g -Xms1g"
       discovery.type: single-node
-    networks:
-      - elk
-
-  api:
-    image: "api" #your image with api running on port :8080
     ports:
-      - "8080:8080"
+      - "9200:9200"
+      - "9300:9300"
     networks:
       - elk
-    depends_on:
-      - elasticsearch
+    deploy:
+      mode: replicated
+      replicas: 1
 
   kibana:
-    build:
-      context: kibana/
-      args:
-        ELK_VERSION: $ELK_VERSION
+    image: docker.elastic.co/kibana/kibana:7.5.0
     volumes:
       - type: bind
         source: ./kibana/config/kibana.yml
@@ -48,6 +45,9 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    deploy:
+      mode: replicated
+      replicas: 1
 
 networks:
   elk:
