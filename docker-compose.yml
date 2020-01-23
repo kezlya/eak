@@ -28,9 +28,6 @@ services:
       - "9300:9300"
     networks:
       - elk
-    deploy:
-      mode: replicated
-      replicas: 1
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.5.0
@@ -45,9 +42,6 @@ services:
       - elk
     depends_on:
       - elasticsearch
-    deploy:
-      mode: replicated
-      replicas: 1
 
 networks:
   elk:
