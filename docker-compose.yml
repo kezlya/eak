@@ -5,6 +5,8 @@ services:
     image: nginx #your image with api running on port :8080
     ports:
       - "8080:80"
+    environment:
+      ELASTICSEARCH: elasticsearch
     networks:
       - elk
     depends_on:
