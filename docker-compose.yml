@@ -2,11 +2,11 @@ version: '3.2'
 
 services:
   api:
-    image: nginx #your image with api running on port :8080
+    image: gcr.io/anthive-prod/api:latest #your image with api running on port :8080
+    env_file:
+      - ./api.env
     ports:
-      - "8080:80"
-    environment:
-      ELASTICSEARCH: elasticsearch
+      - "8080:8080"
     networks:
       - elk
     depends_on:
@@ -30,20 +30,6 @@ services:
       - "9300:9300"
     networks:
       - elk
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.5.0
-    volumes:
-      - type: bind
-        source: ./kibana/config/kibana.yml
-        target: /usr/share/kibana/config/kibana.yml
-        read_only: true
-    ports:
-      - "5601:5601"
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
 
 networks:
   elk:
