@@ -1,17 +1,6 @@
 version: '3.2'
 
 services:
-  api:
-    image: nginx #your image with api running on port :8080
-    ports:
-      - "8080:80"
-    environment:
-      ELASTICSEARCH: elasticsearch
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
     volumes:
