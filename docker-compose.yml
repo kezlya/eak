@@ -1,6 +1,7 @@
 version: '3.2'
 
 services:
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
     volumes:
@@ -15,7 +16,7 @@ services:
       ES_JAVA_OPTS: "-Xmx1g -Xms1g"
       discovery.type: single-node
     ports:
-      - "9200:9200"
+      - "9200:80"
       - "9300:9300"
     networks:
       - elk
