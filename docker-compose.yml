@@ -16,7 +16,7 @@ services:
       ES_JAVA_OPTS: "-Xmx1g -Xms1g"
       discovery.type: single-node
     ports:
-      - "9200:80"
+      - "9200:9200"
       - "9300:9300"
     networks:
       - elk
