@@ -1,7 +1,4 @@
-ARG ELK_VERSION
-
-# https://github.com/elastic/elasticsearch-docker
-FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
-
-# Add your elasticsearch plugins setup here
-# Example: RUN elasticsearch-plugin install analysis-icu
+FROM docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+COPY ./config/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+ENV discovery.type=single-node
+ENV ES_JAVA_OPTS="-Xmx1g -Xms1g"
